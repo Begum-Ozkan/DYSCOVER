@@ -1,0 +1,1488 @@
+/* === GENEL AYARLAR VE DEĞİŞKENLER === */
+
+:root {
+    --primary-color: #e76f51;
+    --secondary-color: #f4a261;
+    --dark-blue: #023047;
+    --light-blue: #8ecae6;
+    --box-border: #cce7f5;
+    --bg-light: #f9f9f9;
+    --bg-white: #ffffff;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--dark-blue);
+    background-color: var(--bg-light);
+    line-height: 1.6;
+}
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+h1, h2, h3 {
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.8rem; text-align: center; margin-bottom: 30px; }
+h3 { font-size: 1.3rem; }
+p { margin-bottom: 10px; }
+
+/* === HEADER / ÜST BÖLÜM (MODERN & TEMA UYUMLU) === */
+header {
+    /* Temaya göre arkaplan rengi (Dark modda koyu, Light modda açık) */
+    background-color: var(--bg-card) !important;
+    padding: 15px 0;
+    
+    /* Alt çizgi rengi de temaya uysun */
+    border-bottom: 1px solid var(--border-color) !important;
+    
+    /* Renk geçişi yumuşak olsun */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    /* ÖNEMLİ: Bu satır Logoyu SAĞA, Menüyü SOLA alır */
+    flex-direction: row-reverse; 
+}
+
+/* Logo Ayarları */
+.logo img {
+    height: 50px;
+    width: auto;
+    /* İsteğe bağlı: Koyu temada logo parlasın istersen filtre ekleyebiliriz */
+    /* filter: drop-shadow(0 0 2px rgba(255,255,255,0.5)); */
+}
+
+/* Navigasyon (Menü) */
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 30px; /* Linkler arası boşluk */
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0; /* Eski margin-left'i sıfırladık, gap kullanıyoruz */
+}
+
+nav ul li a {
+    text-decoration: none;
+    
+    /* Yazı ve İkon Rengi (Temadan gelir: Dark modda beyaz, Light modda lacivert) */
+    color: var(--text-main) !important; 
+    
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* İkon ile yazı arasındaki boşluk */
+}
+
+/* Hover (Üzerine gelince) ve Aktif Durum */
+nav ul li a:hover,
+nav ul li a.active-link { /* HTML'de aktif sayfaya bu sınıfı verebilirsin */
+    color: var(--primary-color) !important;
+    background-color: rgba(120, 120, 120, 0.1); /* Hafif bir kutu efekti */
+    transform: translateY(-2px); /* Hafif zıplama efekti */
+}
+
+/* İkonların Boyut Ayarı */
+nav ul li a i {
+    transition: transform 0.3s;
+}
+
+nav ul li a:hover i {
+    transform: scale(1.2); /* Üzerine gelince ikon büyüsün */
+}
+
+/* Mobilde düzen bozulmasın */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column; /* Mobilde alt alta olsunlar */
+        gap: 15px;
+    }
+    nav ul {
+        gap: 20px;
+    }
+}
+
+
+/* === GENEL BUTON STİLİ === */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: var(--primary-color);
+    color: var(--bg-white);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 700;
+    transition: background-color 0.3s;
+}
+.btn:hover {
+    background-color: #d9644a;
+}
+
+/* --- HERO SLIDER TASARIMI --- */
+.hero-slider-container {
+    position: relative;
+    width: 100%;
+    height: 85vh; /* Ekranın %85'ini kaplar */
+    overflow: hidden;
+    background-color: #000; /* Yüklenirken siyah kalsın */
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Gizli */
+    transition: opacity 1s ease-in-out; /* Yumuşak geçiş efekti */
+    display: flex;
+    align-items: center; /* Yazıyı dikey ortala */
+    justify-content: center; /* Yazıyı yatay ortala */
+}
+
+.hero-slide.active {
+    opacity: 1; /* Sadece aktif olan görünür */
+    z-index: 1;
+}
+
+/* Video ve Resim Ayarları */
+.slide-media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Görüntüyü bozmadan alanı doldurur */
+    z-index: -2;
+}
+
+/* Karartma Katmanı (Yazıların okunması için şart) */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* %40 siyah perde */
+    z-index: -1;
+}
+
+/* Yazı İçeriği */
+.slide-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white; /* Arka plan koyu olduğu için yazı beyaz */
+    max-width: 800px;
+}
+
+.slide-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.slide-content p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Slider Butonları */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 24px;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.slider-btn:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.prev-btn { left: 20px; }
+.next-btn { right: 20px; }
+
+/* 3. Paragraf Rengini Temaya Bağla */
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: var(--text-main) !important; /* veya var(--text-muted) */
+    opacity: 0.9;
+}
+
+/* Mobilde Hizalama Düzeltmesi (Zaten @media kısmında var ama buraya not düşelim) */
+@media (max-width: 768px) {
+    .hero-content {
+        text-align: center;
+    }
+}
+/* === HOW IT WORKS (ADIMLAR) - TEMA UYUMLU === */
+
+.how-it-works {
+    padding: 60px 0;
+}
+
+.steps {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.step-box {
+    flex: 1;
+    
+    /* 1. Arkaplanı Şeffaf Yap (Temanın rengi alttan görünsün) */
+    background-color: transparent; 
+    
+    /* 2. Kenarlığı Temaya Bağla (Koyu modda açık gri, açık modda koyu) */
+    border: 2px solid var(--border-color);
+    
+    border-radius: 8px;
+    padding: 25px;
+    text-align: center;
+    
+    /* Hafif bir gölge kalabilir veya 'none' yapılabilir */
+    box-shadow: none; 
+    
+    /* Renk geçişleri yumuşak olsun */
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.step-box:hover {
+    transform: translateY(-5px); /* Üzerine gelince hafif yukarı çıksın */
+    border-color: var(--primary-color); /* Kenarlık renkli olsun */
+}
+
+/* Kutu içindeki paragraflar */
+.step-box p {
+    text-align: left;
+    /* 3. Yazı rengini temaya bağla (Dark modda okunabilirlik için şart) */
+    color: var(--text-main) !important; 
+}
+
+/* Kutu içindeki başlıklar (Eğer varsa h3 vb.) */
+.step-box h3 {
+    color: var(--text-main) !important;
+}
+
+/* İkonlar */
+.step-box .icon {
+    display: block;
+    font-size: 2rem;
+    
+    /* 4. İkon rengini ana tema rengi yap (Light Blue yerine Primary daha iyi görünür) */
+    color: var(--primary-color); 
+    
+    margin-bottom: 15px;
+}
+
+
+
+/* === FOOTER / ALT BÖLÜM === */
+footer {
+    padding: 30px 0;
+    text-align: center;
+    border-top: 1px solid #eee;
+    margin-top: 40px;
+    color: #888;
+}
+
+/* ======================================= */
+/* === APP.HTML (Uygulama Sayfası) STİLLERİ === */
+/* ======================================= */
+
+.app-container {
+    display: flex;
+    gap: 30px; 
+    margin-top: 30px;
+    position: relative; /* Butonu konumlandırmak için gerekli */
+}
+.main-content {
+    flex: 2; /* Sol taraf daha geniş */
+    /* DÜZELTME: Animasyon için 'all' kullanıldı */
+    transition: all 0.4s ease-in-out;
+}
+.settings-sidebar {
+    /* DÜZELTME: Sabit bir genişlik veriyoruz (daha iyi animasyon için) */
+    flex: 0 0 340px; /* Büyüme:0, Küçülme:0, Temel Genişlik: 340px */
+    
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    height: fit-content;
+    
+    transition: all 0.4s ease-in-out;
+    opacity: 1;
+    overflow: hidden;
+}
+
+/* === Sekmeler (Tabs) === */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+.tab-link {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #888;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px; 
+}
+.tab-link.active {
+    color: var(--dark-blue);
+    border-bottom-color: var(--light-blue);
+}
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
+
+/* === 'Upload' & 'Paste' Alanları === */
+.btn-upload {
+    background-color: var(--primary-color);
+    width: 100%;
+    padding: 30px;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+.btn-upload:hover {
+    background-color: #d9644a; 
+}
+.upload-note {
+    text-align: center;
+    margin-top: 10px;
+    color: #777;
+}
+#text-input {
+    width: 100%;
+    /* DÜZELTME: İyileştirme (Daha yüksek) */
+    height: 200px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+    /* DÜZELTME: İyileştirme (Yeniden boyutlandırma) */
+    resize: vertical;
+}
+
+
+/* === Ayarlar Kenar Çubuğu === */
+.settings-header {
+    display: flex;
+    /* DÜZELTME: Buton dışarıda olduğu için başlığı ortalıyoruz */
+    justify-content: center; 
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.settings-header h3 {
+    font-size: 1rem;
+    color: var(--dark-blue);
+    margin: 0;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group > label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+}
+
+/* === Kaydıraçlar, Renkler, Toggle Butonları (Değişiklik yok) === */
+.slider-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+.slider-wrapper label {
+    font-size: 0.9rem;
+    color: #333;
+    flex: 2;
+}
+.slider-wrapper input[type="range"] {
+    flex: 3;
+    width: 100%;
+}
+.slider-wrapper span {
+    flex: 1;
+    text-align: right;
+    font-size: 0.9rem;
+    color: #555;
+    min-width: 30px;
+}
+.color-swatches {
+    display: flex;
+    justify-content: space-around;
+}
+.color-swatches input[type="radio"] {
+    display: none;
+}
+.color-swatches label {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.color-swatches input[type="radio"]:checked + label {
+    border-color: var(--dark-blue);
+    transform: scale(1.1);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+.toggle-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.toggle-wrapper {
+    display: flex;
+    align-items: center;
+}
+.toggle-wrapper .toggle-icon,
+.toggle-wrapper .tts-button {
+    font-size: 1.5rem;
+    color: #ccc;
+    background-color: #f0f0f0;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.toggle-wrapper .tts-button {
+    border: none;
+    cursor: pointer;
+}
+.toggle-wrapper.active .toggle-icon,
+.toggle-wrapper .tts-button:hover {
+    color: var(--bg-white);
+    background-color: var(--primary-color);
+}
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+}
+.toggle-switch input { display: none; }
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: .4s;
+}
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .4s;
+}
+input:checked + .toggle-slider {
+    background-color: var(--primary-color);
+}
+input:checked + .toggle-slider:before {
+    transform: translateX(22px);
+}
+#apply-button {
+    display: none;
+}
+
+
+
+/* ======================================= */
+/* === CONTACT.HTML (İletişim Sayfası) STİLLERİ === */
+/* ======================================= */
+
+.contact-page {
+    margin-top: 30px;
+}
+.contact-container {
+    display: flex;
+    gap: 40px; 
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+.contact-info {
+    flex: 1; 
+}
+.contact-info h2,
+.contact-form-wrapper h2 {
+    color: var(--dark-blue);
+    margin-bottom: 15px;
+}
+.contact-form-wrapper h3 {
+    color: var(--dark-blue);
+    font-size: 1.2rem;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+/* DÜZELTME: Kritik Hizalama Düzeltmesi */
+.contact-form-wrapper p {
+    text-align: left;
+}
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #333;
+}
+.info-item .icon {
+    font-size: 1.2rem;
+    color: var(--dark-blue);
+    width: 20px; 
+    text-align: center;
+}
+.info-item .location-icon {
+    font-size: 1.5rem;
+    color: #2a9d8f; 
+}
+.map-container {
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden; 
+    border: 1px solid #e0e0e0;
+}
+.contact-form-wrapper {
+    flex: 1.2; 
+}
+.contact-form-wrapper .form-group {
+    margin-bottom: 20px;
+}
+.contact-form-wrapper .form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--dark-blue);
+}
+.contact-form-wrapper input[type="text"],
+.contact-form-wrapper input[type="email"],
+.contact-form-wrapper select,
+.contact-form-wrapper textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+}
+.contact-form-wrapper textarea {
+    height: 120px;
+    resize: vertical; 
+}
+.contact-form-wrapper .btn-primary {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    border: none;
+}
+
+/* ======================================= */
+/* === AYAR PANELİ AÇMA/KAPAMA (DÜZELTİLMİŞ) === */
+/* ======================================= */
+
+#toggle-settings-btn {
+    position: absolute;
+    top: 10px;
+    
+    /* DÜZELTME: Estetik konumlandırma mantığı */
+    /* Panelin sağ kenarına (340px) + 'gap'in yarısına (15px) göre hizala */
+    right: calc(340px + 15px);
+    /* Butonu tam ortaya almak için kendi genişliğinin yarısı kadar kaydır */
+    transform: translateX(50%);
+    
+    background: #ffffff; 
+    border: 1px solid #e0e0e0;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    color: var(--dark-blue);
+    font-size: 1rem;
+    cursor: pointer;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    transition: all 0.4s ease-in-out;
+    z-index: 10;
+}
+#toggle-settings-btn:hover {
+    background-color: #f9f9f9;
+    transform: translateX(50%) scale(1.1); /* 'transform'u koru */
+}
+
+/* Panel kapalıyken... */
+.app-container.settings-collapsed .settings-sidebar {
+    /* DÜZELTME: Animasyon mantığı güncellendi */
+    flex-basis: 0px;
+    min-width: 0px; /* 'flex-basis: 0'ı desteklemek için */
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: -30px; /* 30px'lik 'gap'i yut */
+    opacity: 0;
+    border: none;
+}
+
+/* Panel kapalıyken butonu sağ kenara kaydır */
+.app-container.settings-collapsed #toggle-settings-btn {
+    right: 15px; /* Ekranın sağına yaslan */
+    transform: translateX(0); /* Transform'u sıfırla */
+}
+.app-container.settings-collapsed #toggle-settings-btn:hover {
+     transform: scale(1.1); /* Sadece scale uygula */
+}
+
+
+/* ======================================= */
+/* === RESPONSIVE / MOBİL GÖRÜNÜM === */
+/* ======================================= */
+
+@media (max-width: 768px) {
+
+    /* --- Genel --- */
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.5rem; }
+    .container {
+        padding: 0 15px;
+    }
+
+    /* --- Header (Navigasyon) --- */
+    header .container {
+        flex-direction: column;
+        gap: 15px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    nav ul {
+        justify-content: center;
+        width: 100%;
+        padding: 0;
+    }
+    nav ul li {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    nav ul li a {
+        font-size: 0.9rem;
+    }
+
+    /* --- Anasayfa (Hero) --- */
+    .hero .container {
+        flex-direction: column;
+        text-align: center; /* Bu kural '.hero-content'i de etkiliyor */
+        gap: 20px;
+        padding-top: 20px;
+    }
+    .hero-image {
+        order: -1; 
+    }
+    /* DÜZELTME: Mobilde 'Hero' metnini tekrar ortala (Kural zaten var) */
+    .hero-content {
+        text-align: center; /* Masaüstünde sola yaslı, mobilde ortalı */
+    }
+
+    /* --- Anasayfa (How It Works & Blog) --- */
+    .steps, .blog-posts {
+        flex-direction: column;
+        gap: 20px;
+    }
+    /* Mobilde 'How It Works' paragrafları ortalı kalabilir */
+    .step-box p {
+        text-align: center;
+    }
+
+    /* --- Uygulama Sayfası (app.html) --- */
+    .app-container {
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 15px;
+        overflow: visible; /* Butonun dışarı taşmasına izin ver */
+    }
+    
+    .main-content, .settings-sidebar {
+        flex: 1 1 100%;
+        width: 100%;
+        max-height: 5000px;
+        /* DÜZELTME: Sabit genişlikleri sıfırla */
+        flex-basis: auto;
+        min-width: auto;
+        max-width: none; /* max-width'ı sıfırla */
+    }
+
+    /* Panel kapalıyken (Mobil) */
+    .app-container.settings-collapsed .settings-sidebar {
+        max-height: 0;
+        flex-basis: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin: 0; /* Negatif margin'e gerek yok */
+        border: none;
+        opacity: 0;
+    }
+    
+    /* Kapatma Butonu (Mobil Konumu) */
+    #toggle-settings-btn {
+        top: -18px; /* Panelin üst kenarından dışarı taşır */
+        right: 15px;
+        left: auto;
+        transform: translateX(0);
+    }
+    #toggle-settings-btn:hover {
+        transform: scale(1.1);
+    }
+    
+    .app-container.settings-collapsed #toggle-settings-btn {
+        right: 15px; 
+        transform: translateX(0);
+    }
+    
+    /* Slider'lar (Mobil) */
+    .slider-wrapper {
+        flex-wrap: wrap;
+    }
+    .slider-wrapper label {
+        flex-basis: 100%;
+        margin-bottom: 5px;
+    }
+    .slider-wrapper input[type="range"] {
+        flex-basis: 70%;
+    }
+    .slider-wrapper span {
+        flex-basis: 25%;
+    }
+
+    /* --- İletişim Sayfası (contact.html) --- */
+    .contact-container {
+        flex-direction: column;
+        padding: 20px;
+        gap: 30px;
+    }
+    .contact-form-wrapper {
+        margin-top: -20px; 
+    }
+    /* Mobilde iletişim paragrafı ortalı kalabilir */
+    .contact-form-wrapper p {
+        text-align: center;
+    }
+}
+
+/* === APP SAYFASI GENİŞLETME === */
+/* Sol tarafı (main-content) genişletiyoruz, sağ panel sabit kalıyor */
+.main-content {
+    flex: 1; /* Mevcut alanı doldur */
+    min-width: 0; /* İçerik taşmasını önler */
+}
+
+/* Text Input ve Output kutularının tam genişlikte olduğundan emin olalım */
+#text-input, #output-box {
+    width: 100%;
+    max-width: 100%; /* Sınırlamayı kaldırıyoruz */
+}
+
+/* === YENİ YORUMLAR BÖLÜMÜ STİLİ (Anasayfa İçin - GÜNCELLENMİŞ) === */
+.reviews-section {
+    display: flex;
+    flex-direction: column; /* Alt alta sırala */
+    gap: 20px;
+}
+
+.review-card-horizontal {
+    /* 1. Arkaplan şeffaf yapıldı */
+    background-color: transparent; 
+    
+    /* 2. Kenarlık rengi temaya bağlandı (Koyu temada açık gri olur) */
+    border: 1px solid var(--border-color); 
+    
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    
+    /* Şeffaf olduğu için gölgeyi kaldırmak daha temiz durur, isteğe bağlı açabilirsin */
+    box-shadow: none; 
+    transition: transform 0.2s, border-color 0.3s;
+}
+
+.review-card-horizontal:hover {
+    transform: translateY(-3px);
+    /* Mouse üzerine gelince kenarlık ana renk (turuncu/kırmızı) olsun */
+    border-color: var(--primary-color); 
+}
+
+.review-quote {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 10px;
+    
+    /* 3. Yazı rengi temaya bağlandı (Dark modda beyazlaşır) */
+    color: var(--text-main) !important; 
+}
+
+.review-author {
+    font-weight: 700;
+    /* Yazar ismi vurgulu renk (Primary) kalabilir veya --text-muted yapılabilir */
+    color: var(--primary-color); 
+    text-align: right; 
+}
+
+/* En alttaki "Bizimle paylaşın" kutusu */
+.review-cta {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    
+    /* Arkaplan şeffaf */
+    background-color: transparent; 
+    
+    border-radius: 8px;
+    /* Kesikli çizgi rengi de temaya uysun */
+    border: 1px dashed var(--border-color); 
+}
+
+/* CTA kutusunun içindeki yazı rengi */
+.review-cta p {
+    color: var(--text-main) !important;
+}
+
+.review-cta a {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: underline;
+}
+/* === TTS VURGULAMA (Highlight) === */
+.highlight-word {
+    background-color: #ffeb3b; /* Sarı vurgu */
+    color: #000;
+    border-radius: 3px;
+    padding: 0 2px;
+    transition: background-color 0.1s;
+}
+/* Koyu temada vurgu rengini ayarla */
+body.theme-dark .highlight-word {
+    background-color: #ff9800; /* Turuncu vurgu */
+    color: #000;
+}
+/* === GLOBAL AYARLAR PANELİ STİLİ (style.css EN ALTINA EKLE) === */
+
+/* Panelin Dış Kapsayıcısı (Tüm sayfaların sağında duracak) */
+.global-sidebar-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh; /* Tam ekran boyu */
+    z-index: 9999; /* Her şeyin üstünde */
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Panel Kapalıyken (Sağa sakla) */
+.global-sidebar-container.collapsed {
+    transform: translateX(340px); /* Panelin genişliği kadar sağa it */
+}
+
+/* Açma/Kapama Butonu */
+.global-toggle-btn {
+    position: absolute;
+    left: -40px; /* Panelin soluna yapıştır */
+    top: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dark-blue);
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Panelin Kendisi (İçerik) */
+.settings-sidebar {
+    width: 340px;
+    height: 100%;
+    background-color: #ffffff;
+    border-left: 1px solid #e0e0e0;
+    padding: 20px;
+    overflow-y: auto; /* İçerik taşarsa kaydırma çubuğu çıksın */
+    box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+}
+
+/* Form içi düzenlemeler */
+.settings-header {
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+/* Eğer style.css içinde .app-container.settings-collapsed gibi eski kodlar varsa silebilirsin,
+   çünkü artık yeni yapıyı (.global-sidebar-container) kullanacağız. */
+   /* === APP SAYFASI GENİŞLETME VE KUTU AYARLARI === */
+
+/* 1. Ana Kapsayıcıyı Sola Genişlet (Sarı alanı doldur) */
+.app-container {
+    max-width: 95% !important; /* 1100px sınırını kırar, ekranı kaplar */
+    margin-left: 20px !important; /* Sol kenardan çok az boşluk bırakır */
+    margin-right: 50px !important; /* Sağdaki ayar butonu için pay bırakır */
+    padding: 0;
+    display: block; /* Flex yapısını sıfırlar */
+}
+
+/* 2. İçerik Alanını Tam Genişlik Yap */
+.main-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none; /* Yan yana dizilmeyi iptal eder */
+}
+
+/* 3. Yapıştırma Kutusunu Küçült (Paste Text) */
+#text-input {
+    height: 120px; /* Daha kısa bir yükseklik */
+    width: 100%;   /* Tam genişlik */
+    resize: vertical; /* Kullanıcı isterse elle büyütebilsin */
+}
+
+/* 4. Okuma Kutusunu Büyült (Your Text) */
+#output-box {
+    min-height: 60vh; /* Ekran yüksekliğinin %60'ı kadar (Bayağı büyük) */
+    width: 100%;      /* Tam genişlik */
+}
+
+/* 5. Mobilde Sorun Çıkmaması İçin (Opsiyonel Güvenlik) */
+@media (max-width: 768px) {
+    .app-container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 10px;
+    }
+}
+/* === YAPIŞTIRMA KUTUSU ŞEFFAFLIK AYARI === */
+
+#text-input {
+    background-color: transparent; /* Arkaplanı tamamen şeffaf yapar */
+    
+    /* Sınırları belirgin tutalım ki kullanıcı nereye yazacağını görsün */
+    border: 2px solid var(--box-border); 
+    border-radius: 8px;
+    
+    /* Yazı rengi temaya göre (CSS değişkeninden) otomatik değişsin */
+    color: var(--text-main); 
+    
+    /* Daha önce yaptığımız boyut ayarlarını koruyoruz */
+    height: 120px;
+    width: 100%;
+    resize: vertical;
+    padding: 15px;
+    font-family: inherit;
+    font-size: 1rem;
+    
+    /* Geçiş efekti (Theme değişince yumuşak olsun) */
+    transition: all 0.3s ease;
+}
+
+/* Kutuya tıklayınca (focus) kenarlık rengi parlasın */
+#text-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(231, 111, 81, 0.2); /* Hafif bir parlama */
+}
+/*tema
+/* === YENİ ARKA PLAN TEMALARI (Göz Dostu & Pastel) === */
+
+/* 1. Pastel Nane (Açık - Ferah) */
+body.theme-mint {
+    --bg-body: #e0f2f1;       /* Çok açık, yumuşak yeşil */
+    --bg-card: #ffffff;       /* Kartlar beyaz kalabilir veya #effbfc olabilir */
+    --text-main: #00695c;     /* Koyu yeşilimsi yazı (okunabilirlik için) */
+    --text-muted: #4db6ac;
+    --border-color: #b2dfdb;
+}
+
+/* 2. Pastel Şeftali (Açık - Sıcak/Mavi Işık Azaltıcı) */
+body.theme-peach {
+    --bg-body: #fbe9e7;       /* Çok açık, yumuşak turuncu/pembe */
+    --bg-card: #fff;
+    --text-main: #bf360c;     /* Koyu kiremit rengi yazı */
+    --text-muted: #ff8a65;
+    --border-color: #ffccbc;
+}
+
+/* 3. Pastel Siyah (Koyu - "Soft Charcoal") */
+body.theme-soft-dark {
+    --bg-body: #2d2d2d;       /* Tam siyah değil, yumuşak kömür rengi */
+    --bg-card: #3d3d3d;       /* Kutular bir tık daha açık */
+    --text-main: #e0e0e0;     /* Kırık beyaz yazı */
+    --text-muted: #a0a0a0;
+    --border-color: #4d4d4d;
+}
+
+/* 4. Pastel Lacivert (Koyu - "Nordic Navy") */
+body.theme-soft-navy {
+    --bg-body: #34495e;       /* Mat, griye çalan lacivert */
+    --bg-card: #465f75;
+    --text-main: #ecf0f1;     /* Buz beyazı yazı */
+    --text-muted: #bdc3c7;
+    --border-color: #5d7891;
+}
+/* === TEMA VE KUTU RENK ENTEGRASYONU === */
+
+/* 1. Kutu (Output Box) Arkaplan Rengi */
+/* Bu kutu her zaman temanın belirlediği kart rengini alacak */
+#output-box {
+    background-color: var(--bg-card) !important; 
+    color: var(--text-main) !important;
+    border-color: var(--border-color) !important;
+    transition: all 0.3s ease;
+}
+
+/* 2. Yapıştırma Kutusu (Input Box) - ŞEFFAF OLSUN İSTEMİŞTİN */
+#text-input {
+    background-color: transparent !important; /* Her zaman şeffaf */
+    color: var(--text-main) !important;       /* Yazı rengi temaya uysun */
+    border-color: var(--border-color) !important;
+}
+
+/* === TEMA TANIMLARI (CETVEL RENKLERİ EKLENDİ) === */
+
+/* 1. Varsayılan (Light) - Klasik Sarı Vurgu */
+body.theme-light {
+    --bg-body: #f9f9f9;
+    --bg-card: #ffffff;
+    --text-main: #023047;
+    --border-color: #e0e0e0;
+    --text-muted: #555555;
+    /* Cetvel: Sarımsı şeffaf (Highlighter) */
+    --ruler-bg: rgba(255, 230, 0, 0.25); 
+    --ruler-border: rgba(200, 180, 0, 0.3);
+}
+
+/* 2. Pastel Nane */
+body.theme-mint {
+    --bg-body: #e0f2f1;
+    --bg-card: #ffffff;
+    --text-main: #00695c;
+    --border-color: #b2dfdb;
+    --text-muted: #4db6ac;
+    /* Cetvel: Yeşilimsi */
+    --ruler-bg: rgba(0, 150, 136, 0.15);
+    --ruler-border: rgba(0, 150, 136, 0.3);
+}
+
+/* 3. Pastel Şeftali */
+body.theme-peach {
+    --bg-body: #fbe9e7;
+    --bg-card: #ffffff;
+    --text-main: #bf360c;
+    --border-color: #ffccbc;
+    --text-muted: #ff8a65;
+    /* Cetvel: Turuncumsu */
+    --ruler-bg: rgba(255, 87, 34, 0.15);
+    --ruler-border: rgba(255, 87, 34, 0.3);
+}
+
+/* 4. Pastel Siyah (Dark) - SPOTLIGHT ETKİSİ */
+body.theme-soft-dark {
+    --bg-body: #2d2d2d;
+    --bg-card: #3d3d3d;
+    --text-main: #e0e0e0;
+    --border-color: #4d4d4d;
+    --text-muted: #a0a0a0;
+    /* Cetvel: Beyaz şeffaf (Fener gibi aydınlatır) */
+    --ruler-bg: rgba(255, 255, 255, 0.08); 
+    --ruler-border: rgba(255, 255, 255, 0.15);
+}
+
+/* 5. Pastel Lacivert (Navy) */
+body.theme-soft-navy {
+    --bg-body: #34495e;
+    --bg-card: #465f75;
+    --text-main: #ecf0f1;
+    --border-color: #5d7891;
+    --text-muted: #bdc3c7;
+    /* Cetvel: Açık mavimsi */
+    --ruler-bg: rgba(255, 255, 255, 0.1);
+    --ruler-border: rgba(100, 200, 255, 0.2);
+}
+/* ======================================================= */
+/* === KAPSAMLI TEMA VE KUTU ENTEGRASYONU (DÜZELTİLDİ) === */
+/* ======================================================= */
+
+/* --- 1. GENEL SAYFA VE HEADER AYARLARI --- */
+/* Bu kısımlar "Background Themes" değişince kesinlikle değişmeli */
+
+body {
+    background-color: var(--bg-body) !important;
+    color: var(--text-main) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+    background-color: var(--bg-card) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a {
+    color: var(--text-main) !important;
+}
+
+/* --- 2. AYARLAR PANELİ (SIDEBAR) --- */
+.settings-sidebar {
+    background-color: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border-left: 1px solid var(--border-color) !important;
+}
+
+.settings-header h3 {
+    color: var(--text-main) !important;
+}
+
+/* Panel içindeki açılır kutular (Select) */
+.settings-sidebar select {
+    background-color: var(--bg-body) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+/* --- 3. LOGO DÜZENLEMESİ --- */
+.logo img {
+    /* Logonun boyutunu koru */
+    height: 50px;
+    width: auto;
+}
+
+/* --- 4. KUTU (INPUT & OUTPUT) AYARLARI --- */
+
+/* OUTPUT BOX (Okuma Kutusu) */
+/* DİKKAT: Burada !important KULLANMIYORUZ. */
+/* Sebebi: Temadan renk alsın AMA "Color Schemes" toplarına tıklayınca JS o rengi ezebilsin. */
+#output-box {
+    background-color: var(--bg-card); /* Varsayılan tema rengi */
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+/* INPUT BOX (Yapıştırma Kutusu) */
+/* Burası her zaman şeffaf kalacak */
+#text-input {
+    background-color: transparent !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-color) !important;
+}
+/* === style.css EN ALTINA EKLE === */
+
+/* === style.css EN ALT KISIM (GÜNCEL) === */
+
+/* Kutu (Output Box) Ayarları */
+#output-box {
+    /* Buradaki !important KALDIRILDI. Artık JS rengi değiştirebilir. */
+    background-color: var(--bg-card); 
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    
+    /* Diğer stil ayarları */
+    border-radius: 5px;
+    padding: 25px;
+    min-height: 300px; /* Kutunun boyu */
+    font-size: 18px; 
+    line-height: 1.5; 
+    position: relative; 
+    overflow: hidden; 
+    
+    /* Renk değişimi yumuşak olsun */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Şeffaf Input Kutusu (Burası aynı kalıyor) */
+#text-input {
+    background-color: transparent !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-color) !important;
+}
+/* === DARK MODE & OKUNABİLİRLİK DÜZELTMELERİ === */
+/* Bu kodları style.css dosyasının EN ALTINA ekle */
+
+/* 1. Sekme Başlıkları (Upload File / Paste Text) */
+.tab-link {
+    color: var(--text-muted) !important; /* Pasifken soluk olsun */
+    transition: color 0.3s;
+}
+
+.tab-link.active {
+    color: var(--text-main) !important; /* Aktifken parlak/okunur olsun */
+    border-bottom-color: var(--primary-color) !important;
+}
+
+/* 2. Tüm Başlıklar (H1, H2, H3 - 'Your Text' dahil) */
+h1, h2, h3, h4, h5, h6, 
+.output-wrapper h3 {
+    color: var(--text-main) !important;
+}
+
+/* 3. Placeholder (Kutu içindeki "Paste your copied text..." yazısı) */
+/* Farklı tarayıcılar için ayrı ayrı yazmak gerekir */
+::placeholder {
+    color: var(--text-main) !important;
+    opacity: 0.5; /* Biraz şeffaf olsun ki normal yazıdan ayrılsın */
+}
+
+::-webkit-input-placeholder { color: var(--text-main) !important; opacity: 0.5; }
+:-ms-input-placeholder { color: var(--text-main) !important; opacity: 0.5; }
+
+/* 4. Genel Form Elemanları ve Etiketler */
+label, 
+.upload-note, 
+.slider-wrapper span {
+    color: var(--text-main) !important;
+}
+
+/* 5. Textarea ve Input Yazı Rengi (Yazarken görünen renk) */
+textarea, input, select {
+    color: var(--text-main) !important;
+    /* Arkaplan inputlarda şeffaf olsun demiştik, yazı rengi de uysun */
+}
+/* === GLOBAL READING RULER (DİNAMİK & GLOBAL) === */
+.reading-ruler-highlight {
+    position: fixed; /* Sayfa kaydırılsa bile ekranda sabit durur */
+    left: 0;
+    width: 100vw; /* Ekran genişliği */
+    height: 40px; /* Varsayılan yükseklik */
+    
+    /* Rengi yukarıdaki değişkenlerden alacak */
+    background-color: var(--ruler-bg); 
+    border-top: 1px solid var(--ruler-border);
+    border-bottom: 1px solid var(--ruler-border);
+    
+    pointer-events: none; /* Mouse tıklamalarını engellemez, arkaya geçirir */
+    z-index: 9999; /* Her şeyin üstünde */
+    display: none; /* Başlangıçta gizli */
+    
+    transition: height 0.2s ease, background-color 0.3s ease;
+}
+/* === TRANSPARENT INTERFACE MODU === */
+
+/* Body'de bu sınıf varsa aşağıdaki elemanlar şeffaf olur */
+body.interface-transparent .app-container,
+body.interface-transparent .contact-container,
+body.interface-transparent .review-card-horizontal,
+body.interface-transparent .step-box,
+body.interface-transparent .settings-sidebar, /* Yan panel */
+body.interface-transparent header,            /* Üst menü */
+body.interface-transparent #output-box {      /* Metin kutusu */
+    
+    background-color: transparent !important;
+    box-shadow: none !important;
+    
+    /* İsteğe bağlı: Kenarlıkları da kaldırmak istersen border: none !important; yap */
+    /* Ama hafif bir sınır kalması daha şık durur */
+    border-color: rgba(150, 150, 150, 0.3) !important;
+}
+
+/* Şeffaf modda input alanlarının (Select, Slider vb.) görünür kalması için */
+body.interface-transparent select,
+body.interface-transparent .global-toggle-btn {
+    background-color: rgba(255, 255, 255, 0.2) !important; /* Hafif yarı saydam */
+    backdrop-filter: blur(5px); /* Buzlu cam efekti (Destekleyen tarayıcılarda) */
+}
+/* === DÜZELTMELER VE YENİLİKLER === */
+
+/* SORUN 3: TTS Butonları Modernleştirme */
+.tts-controls {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.tts-button {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background-color: #f0f0f0;
+    color: var(--dark-blue);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tts-button:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(231, 111, 81, 0.3);
+}
+
+.tts-button:active {
+    transform: translateY(0);
+}
+
+/* SORUN 2: Transparan Modun Önceliği */
+/* !important kullanarak renk seçimlerini eziyoruz */
+body.interface-transparent #output-box,
+body.interface-transparent .step-box,
+body.interface-transparent .review-card-horizontal,
+body.interface-transparent .settings-sidebar,
+body.interface-transparent header {
+    background-color: transparent !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(5px); /* Buzlu cam efekti */
+    box-shadow: none !important;
+}
+
+/* SORUN 6: İndirme Butonu Stili */
+#download-btn {
+    background-color: #2a9d8f; /* Yeşil tonu */
+    color: white;
+    margin-top: 15px;
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: none;
+    cursor: pointer;
+    transition:background 0.3s;
+}
+#download-btn:hover {
+    background-color: #21867a;
+}
+/* === CONTACT SAYFASI TEMA UYUMLULAŞTIRMA === */
+
+/* 1. Ana İletişim Kutusu */
+.contact-container {
+    /* Sabit beyaz yerine temanın kart rengini (bg-card) kullan */
+    background-color: var(--bg-card) !important; 
+    
+    /* Kenarlık ve Yazı Rengi */
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-main) !important;
+    
+    /* Geçiş efekti */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 2. Başlıklar ve Metinler */
+.contact-info h2, 
+.contact-form-wrapper h2,
+.contact-form-wrapper h3,
+.contact-form-wrapper p,
+.info-item, 
+.info-item span {
+    color: var(--text-main) !important; /* Temaya göre (Beyaz veya Siyah) */
+}
+
+/* 3. İkonlar (Email, Telefon vb.) */
+.info-item .icon {
+    color: var(--primary-color) !important; /* İkonlar her zaman renkli kalsın */
+}
+
+/* 4. Form Alanları (Input, Textarea) */
+.contact-form-wrapper input,
+.contact-form-wrapper select,
+.contact-form-wrapper textarea {
+    /* Arka planı sayfa rengiyle aynı yap (bg-body) */
+    background-color: var(--bg-body) !important;
+    
+    /* Yazı rengi okunabilir olsun */
+    color: var(--text-main) !important;
+    
+    /* Kenarlık */
+    border: 1px solid var(--border-color) !important;
+}
+
+/* 5. Placeholder (Kutu içindeki silik yazılar "Your Name" vb.) */
+.contact-form-wrapper input::placeholder,
+.contact-form-wrapper textarea::placeholder {
+    color: var(--text-main) !important;
+    opacity: 0.6; /* Biraz şeffaf olsun */
+}
+
+/* 6. Transparan Mod Desteği (Şeffaf Kutu Seçilirse) */
+body.interface-transparent .contact-container {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Transparan modda inputların okunabilir kalması için */
+body.interface-transparent .contact-form-wrapper input,
+body.interface-transparent .contact-form-wrapper textarea,
+body.interface-transparent .contact-form-wrapper select {
+    background-color: rgba(255, 255, 255, 0.1) !important; /* Hafif buzlu cam */
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}

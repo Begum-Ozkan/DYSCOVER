@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dyscover - Accessible Reading Tool</title>
+    <link rel="stylesheet" href="style.css?v=1.0.3">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script> 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.18/mammoth.browser.min.js"></script>
+
+    <script src="app.js"></script>
+
+
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="media/img/dyscover-logo.png" alt="Dyscover Logo">
+            </a>
+            
+            <nav>
+                <ul>
+                    <li>
+                        <a href="index.html" aria-label="Home" title="Home">
+                            <i class="fas fa-home" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="app.html" class="active-link">
+                            <i class="fas fa-file-alt"></i> Dyscover Document
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="contact.html" aria-label="Contact" title="Contact Us">
+                            <i class="fas fa-envelope" style="font-size: 1.4rem;"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="app-container container" id="main-app-container">
+    
+    <main class="main-content">
+        
+        <section class="hero-slider-container">
+        
+        <div class="hero-slide active">
+            <video autoplay muted loop playsinline class="slide-media">
+                <source src="media/video/video.mp4" type="video/mp4">
+            </video>
+            <div class="overlay"></div>
+            <div class="slide-content container">
+                <h1>Convert your PDF slides into accessible text.</h1>
+                <p>Your reading experience, simplified.</p>
+                <a href="app.html" class="btn btn-primary">Start Converting Now</a>
+            </div>
+        </div>
+
+        <div class="hero-slide">
+            <img src="media/img/unnamed.jpg" alt="Dyscover Reading" class="slide-media">
+            
+            
+        </div>
+        <div class="hero-slide">
+            <video autoplay muted loop playsinline class="slide-media">
+                <source src="media/video/slider3.mp4" type="video/mp4">
+            </video>
+            
+            <div class="overlay"></div>
+            
+            <div class="slide-content container">
+                <h1>Learn at your own pace.</h1>
+                <p>Accessible tools for every student.</p>
+                <a href="app.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+<button class="slider-btn prev-btn" id="prevBtn">&#10094;</button>
+<button class="slider-btn next-btn" id="nextBtn">&#10095;</button>
+
+        
+    </section>
+
+       <section class="how-it-works">
+            <div class="container">
+                <h2>How It Works?</h2>
+                <div class="steps">
+                    <div class="step-box">
+                        <span class="icon">Upload</span> 
+                        <h3>1. Upload Your PDF</h3>
+                        <p>Easily upload your PDF document to our secure platform. </p>
+                    </div>
+                    <div class="step-box">
+                        <span class="icon">Settings</span>
+                        <h3>2. Customize Settings</h3>
+                        <p>Adjust text size, font, and spacing to your preference. </p>
+                    </div>
+                    <div class="step-box">
+                        <span class="icon">Download</span>
+                        <h3>3. Download & Read</h3>
+                        <p>Download your converted, dyslexic-friendly text and start reading.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <div class="global-sidebar-container collapsed" id="global-sidebar">
+    
+    <button class="global-toggle-btn" id="global-toggle-btn">
+        <i class="fas fa-cog"></i> </button>
+
+    <aside class="settings-sidebar">
+        <div class="settings-header">
+            <h3>ACCESSIBILITY SETTINGS</h3>
+        </div>
+        
+        <form id="settings-form">
+            <div class="form-group">
+                <label for="font-style">Font Style</label>
+                <select id="font-style" name="font-style">
+                    <option value="'Arial', sans-serif">Arial</option>
+                    <option value="'Verdana', sans-serif">Verdana</option>
+                    <option value="'OpenDyslexic', sans-serif">OpenDyslexic</option>
+                    <option value="'Montserrat', sans-serif">Montserrat</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="font-size">Font Size</label>
+                <select id="font-size" name="font-size">
+                    <option value="16">16</option>
+                    <option value="18" selected>18</option>
+                    <option value="20">20</option>
+                    <option value="22">22</option>
+                    <option value="24">24</option>
+                    <option value="28">28</option>
+                </select>
+            </div>
+
+            <div class="form-group spacing-group">
+                <label>Spacing Settings</label>
+                <div class="slider-wrapper">
+                    <label for="line-spacing">Line Spacing</label>
+                    <input type="range" id="line-spacing" name="line-spacing" min="1.5" max="3" step="0.1" value="1.5">
+                    <span id="line-spacing-value">1.5</span>
+                </div>
+                <div class="slider-wrapper">
+                    <label for="word-spacing">Word Spacing</label>
+                    <input type="range" id="word-spacing" name="word-spacing" min="0" max="1" step="0.05" value="0.1">
+                    <span id="word-spacing-value">0.1</span>
+                </div>
+                <div class="slider-wrapper">
+                    <label for="letter-spacing">Letter Spacing</label>
+                    <input type="range" id="letter-spacing" name="letter-spacing" min="0" max="0.5" step="0.02" value="0">
+                    <span id="letter-spacing-value">0</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+            <label>Background Themes</label>
+            <div class="color-swatches">
+                
+                <input type="radio" id="th-light" name="theme" value="theme-light" checked style="display:none;">
+                <label for="th-light" style="background-color: #ffffff; border: 1px solid #ccc;" title="Classic White"></label>
+                
+                <input type="radio" id="th-mint" name="theme" value="theme-mint" style="display:none;">
+                <label for="th-mint" style="background-color: #e0f2f1; border: 1px solid #b2dfdb;" title="Pastel Mint (Focus)"></label>
+
+                <input type="radio" id="th-peach" name="theme" value="theme-peach" style="display:none;">
+                <label for="th-peach" style="background-color: #fbe9e7; border: 1px solid #ffccbc;" title="Pastel Peach (Warm)"></label>
+
+                <input type="radio" id="th-soft-dark" name="theme" value="theme-soft-dark" style="display:none;">
+                <label for="th-soft-dark" style="background-color: #2d2d2d; border: 1px solid #555;" title="Pastel Charcoal"></label>
+
+                <input type="radio" id="th-soft-navy" name="theme" value="theme-soft-navy" style="display:none;">
+                <label for="th-soft-navy" style="background-color: #34495e; border: 1px solid #555;" title="Pastel Navy"></label>
+            </div>
+        </div>
+
+
+            <div class="form-group toggle-group">
+                <label for="reading-ruler">Reading Ruler</label>
+                <div class="toggle-wrapper">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="reading-ruler">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <i class="fas fa-edit toggle-icon"></i>
+                </div>
+            </div>
+
+            <div class="form-group toggle-group">
+                <label>Text-to-Speech</label>
+                <div class="toggle-wrapper">
+                    <button type="button" id="tts-button" class="tts-button">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </aside>
+</div>
+
+           
+
+</div>
+            <section class="testimonials"> <section class="testimonials">
+                <div class="container">
+                    <h2>Expert & User Reviews</h2>
+                    
+                    <div class="reviews-section">
+                        <article class="review-card-horizontal">
+                            <p class="review-quote">"As a dyslexia specialist, I find Dyscover's customizable spacing features incredibly helpful for my students. It reduces visual crowding significantly."</p>
+                            <span class="review-author">- Dr. Sarah Miller, Learning Disability Specialist</span>
+                        </article>
+
+                        <article class="review-card-horizontal">
+                            <p class="review-quote">"The dark themes are a lifesaver for my late-night study sessions. The interface is clean, simple, and exactly what I needed."</p>
+                            <span class="review-author">- James Carter, University Student</span>
+                        </article>
+
+                        <article class="review-card-horizontal">
+                            <p class="review-quote">"Finally, a tool that understands not everyone reads black text on white background. The pastel options are brilliant."</p>
+                            <span class="review-author">- Elif Demir, UX Designer</span>
+                        </article>
+                    </div>
+
+                    <div class="review-cta">
+                        <p>We value your experience.</p>
+                        <a href="contact.html">Share your views and feedback with us <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </section>
+               
+        </main>
+        
+        
+    </div> <footer>
+        <div class="container">
+            <p>&copy; 2025 Dyscover. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

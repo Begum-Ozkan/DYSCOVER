@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Dyscover</title>
+    
+   <link rel="stylesheet" href="style.css?v=1.0.2">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+           <a href="index.html" class="logo">
+                <img src="media/img/dyscover-logo.png" alt="Dyscover Logo">
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="app.html">Dyscover your document</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="contact-page container">
+        
+        <div class="contact-container">
+            
+            <div class="contact-info">
+                <h2>Contact Information</h2>
+                
+                <div class="info-item">
+                    <i class="fas fa-envelope icon"></i>
+                    <span>dscovertextconverter@gmail.com</span>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-phone icon"></i>
+                    <span>+1 (555) 123-4567</span>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt icon location-icon"></i>
+                    <span>Izmir Bakırçay University</span>
+                </div>
+
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12479.28912959633!2d27.149176840428353!3d38.59137021731111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b99818b624c965%3A0x1d4e4f1a2d5e77d!2zxLB6bWlyIEJha8SxcsOnaXkgw5xuaXZlcnNpdGVzaQ!5e0!3m2!1sen!2str!4f13.1!5m2!1sen!2str" 
+                        width="100%" 
+                        height="250" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper">
+                <h2>Get in Touch</h2>
+                <p>We'd love to hear from you. Please fill out this form and we will get in touch with you shortly.</p>
+                
+                <h3>Suggestions & Feedback</h3>
+                
+                <form id="contact-form" 
+      action=https://formspree.io/f/mdkpqyjl
+      method="POST">
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Your Email" required>
+    </div>
+
+    <div class="form-group">
+        <label for="subject">Subject</label>
+        <select id="subject" name="subject">
+            <option value="">Select a subject</option>
+            <option value="suggestion">Suggestion</option>
+            <option value="feedback">Feedback</option>
+            <option value="bug_report">Bug Report</option>
+            <option value="other">Other</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="message">Your Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Your Message..."></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send Message</button>
+</form>
+            </div>
+
+        </div> </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Dyscover. All rights reserved.</p>
+        </div>
+    </footer>
+<div class="global-sidebar-container collapsed" id="global-sidebar">
+    
+        <button class="global-toggle-btn" id="global-toggle-btn">
+            <i class="fas fa-cog"></i> 
+        </button>
+    
+        <aside class="settings-sidebar">
+            <div class="settings-header">
+                <h3>ACCESSIBILITY SETTINGS</h3>
+            </div>
+            
+            <form id="settings-form">
+                
+                <div class="form-group">
+                    <label for="font-style">Font Style</label>
+                    <select id="font-style" name="font-style">
+                        <option value="'Arial', sans-serif">Arial</option>
+                        <option value="'Verdana', sans-serif">Verdana</option>
+                        <option value="'OpenDyslexic', sans-serif">OpenDyslexic</option>
+                        <option value="'Montserrat', sans-serif">Montserrat</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="font-size">Font Size</label>
+                    <select id="font-size" name="font-size">
+                        <option value="16">16</option>
+                        <option value="18" selected>18</option>
+                        <option value="20">20</option>
+                        <option value="22">22</option>
+                        <option value="24">24</option>
+                        <option value="28">28</option>
+                    </select>
+                </div>
+    
+                <div class="form-group spacing-group">
+                    <label>Spacing Settings</label>
+                    <div class="slider-wrapper">
+                        <label for="line-spacing">Line Spacing</label>
+                        <input type="range" id="line-spacing" name="line-spacing" min="1.5" max="3" step="0.1" value="1.5">
+                        <span id="line-spacing-value">1.5</span>
+                    </div>
+                    <div class="slider-wrapper">
+                        <label for="word-spacing">Word Spacing</label>
+                        <input type="range" id="word-spacing" name="word-spacing" min="0" max="1" step="0.05" value="0.1">
+                        <span id="word-spacing-value">0.1</span>
+                    </div>
+                    <div class="slider-wrapper">
+                        <label for="letter-spacing">Letter Spacing</label>
+                        <input type="range" id="letter-spacing" name="letter-spacing" min="0" max="0.5" step="0.02" value="0">
+                        <span id="letter-spacing-value">0</span>
+                    </div>
+                </div>
+    
+                <div class="form-group" style="display:none;"> <label>Color Schemes</label>
+                    <div class="color-swatches">
+                        <input type="radio" name="color-scheme" value="#ffffff" checked>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Background Themes</label>
+                    <div class="color-swatches">
+                        <input type="radio" id="th-light" name="theme" value="theme-light" checked style="display:none;">
+                        <label for="th-light" style="background-color: #ffffff; border: 1px solid #ccc;" title="Classic White"></label>
+                        
+                        <input type="radio" id="th-mint" name="theme" value="theme-mint" style="display:none;">
+                        <label for="th-mint" style="background-color: #e0f2f1; border: 1px solid #b2dfdb;" title="Pastel Mint"></label>
+    
+                        <input type="radio" id="th-peach" name="theme" value="theme-peach" style="display:none;">
+                        <label for="th-peach" style="background-color: #fbe9e7; border: 1px solid #ffccbc;" title="Pastel Peach"></label>
+    
+                        <input type="radio" id="th-soft-dark" name="theme" value="theme-soft-dark" style="display:none;">
+                        <label for="th-soft-dark" style="background-color: #2d2d2d; border: 1px solid #555;" title="Pastel Charcoal"></label>
+    
+                        <input type="radio" id="th-soft-navy" name="theme" value="theme-soft-navy" style="display:none;">
+                        <label for="th-soft-navy" style="background-color: #34495e; border: 1px solid #555;" title="Pastel Navy"></label>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label for="language">Language</label>
+                    <select id="language" name="language">
+                        <option value="en-US">English</option>
+                        <option value="tr-TR">Türkçe</option>
+                    </select>
+                </div>
+
+               
+
+                <div class="form-group toggle-group">
+                    <label for="transparent-mode">Transparent Box</label>
+                    <div class="toggle-wrapper">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="transparent-mode">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <i class="fas fa-layer-group toggle-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group toggle-group">
+                    <label for="reading-ruler">Reading Ruler</label>
+                    <div class="toggle-wrapper">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="reading-ruler">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <i class="fas fa-edit toggle-icon"></i>
+                    </div>
+                </div>
+                
+            </form>
+        </aside>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.18/mammoth.browser.min.js"></script>
+    <script src="app.js"></script> ```
+
+
+</body>
+</html>
