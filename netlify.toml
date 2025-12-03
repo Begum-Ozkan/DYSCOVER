@@ -1,9 +1,4 @@
 # netlify.toml dosyası
 
 [build]
-  # Netlify'a sunucusuz fonksiyonlarımızı "functions" klasöründe aramasını söylüyoruz.
   functions = "functions"
-  # Eğer projeniz statik dosyaları bir 'dist' veya 'build' klasörüne derliyorsa bu da eklenmeli
-  # publish = "dist" 
-
-# Tüm HTTP istekleri için varsayılan başlıkları veya yönlendirmeleri de buraya ekleyebilirsiniz (şimdilik gerek yok)
