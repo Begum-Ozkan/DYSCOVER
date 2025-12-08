@@ -574,14 +574,39 @@ document.addEventListener('DOMContentLoaded', function() {
     if(textInput) textInput.addEventListener('input', applyText);
 
     function applyStyles() {
-        const target = document.body;
-        if(fontStyleSelect) target.style.fontFamily = fontStyleSelect.value;
-        if(fontSizeSelect) target.style.fontSize = fontSizeSelect.value + 'px';
-        if(lineSpacingInput) target.style.lineHeight = lineSpacingInput.value;
-        if(wordSpacingInput) target.style.wordSpacing = wordSpacingInput.value + 'em';
-        if(letterSpacingInput) target.style.letterSpacing = letterSpacingInput.value + 'em';
-        if (rulerHighlight && lineSpacingInput) updateRulerHeight();
+    const line = lineSpacingInput?.value || "";
+    const word = wordSpacingInput?.value + "em" || "";
+    const letter = letterSpacingInput?.value + "em" || "";
+
+    // Genel font ayarları
+    if (fontStyleSelect) document.body.style.fontFamily = fontStyleSelect.value;
+    if (fontSizeSelect) document.body.style.fontSize = fontSizeSelect.value + "px";
+
+    // Satır aralığı
+    if (line) {
+        document.body.style.lineHeight = line;
+        if (textInput) textInput.style.lineHeight = line;
+        if (outputBox) outputBox.style.lineHeight = line;
     }
+
+    // Kelime aralığı
+    if (wordSpacingInput) {
+        document.body.style.wordSpacing = word;
+        if (textInput) textInput.style.wordSpacing = word;
+        if (outputBox) outputBox.style.wordSpacing = word;
+    }
+
+    // Harf aralığı
+    if (letterSpacingInput) {
+        document.body.style.letterSpacing = letter;
+        if (textInput) textInput.style.letterSpacing = letter;
+        if (outputBox) outputBox.style.letterSpacing = letter;
+    }
+
+    // Eğer cetvel (ruler) açıksa yüksekliği güncelle
+    if (typeof updateRulerHeight === "function") updateRulerHeight();
+}
+
     
     function updateSliderValue(slider, display) {
         if(display) display.textContent = slider.value;
