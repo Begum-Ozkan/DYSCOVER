@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@google-cloud/text-to-speech": "^6.4.0",
+    "dotenv": "^17.2.3",
+    "node-fetch": "^2.7.0"
+  },
+  "name": "gp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

@@ -1,8 +1,8 @@
 # Gizli anahtarlar ve yerel dosyalar
 .env
-*.json
 
 # Yüklenen kütüphaneler
 node_modules/
+
 # Local Netlify folder
 .netlify
