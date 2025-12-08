@@ -200,7 +200,11 @@ nav ul li a:hover i {
     margin-bottom: 20px;
     font-weight: 700;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    color: #ffffff !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
+
+
 
 .slide-content p {
     font-size: 1.5rem;
@@ -743,6 +747,45 @@ input:checked + .toggle-slider:before {
     .hero-content {
         text-align: center; /* Masaüstünde sola yaslı, mobilde ortalı */
     }
+/* 1) Hero metni için özel değişken */
+:root {
+  --hero-text-color: #ffffff; /* ilk girişte okunaklı beyaz */
+}
+
+/* Hero alanındaki başlık ve alt metinler */
+/* Senin yapında bunlar büyük ihtimalle .hero-content h1 / p */
+
+
+.hero-content h1 {
+    color: #ffffff !important;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); /* opsiyonel ama okunabilirliği çok artırır */
+}
+
+
+.hero-content p {
+  color: var(--hero-text-color);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7); /* arka planla karışmasın */
+}
+
+/* 2) Fotoğrafın üzerine hafif karartma (overlay) – isteğe bağlı ama çok işe yarar */
+.hero-slide {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35); /* %35 karartma */
+  pointer-events: none;
+}
+
+/* Hero yazısını overlay'in üstüne çıkar */
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
 
     /* --- Anasayfa (How It Works & Blog) --- */
     .steps, .blog-posts {
