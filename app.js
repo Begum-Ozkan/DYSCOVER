@@ -579,8 +579,41 @@ document.addEventListener('DOMContentLoaded', function() {
     const letter = letterSpacingInput?.value + "em" || "";
 
     // Genel font ayarları
-    if (fontStyleSelect) document.body.style.fontFamily = fontStyleSelect.value;
-    if (fontSizeSelect) document.body.style.fontSize = fontSizeSelect.value + "px";
+   // Genel font ayarları
+    // Genel font ayarları (body + metin alanları)
+    if (fontStyleSelect) {
+        const font = fontStyleSelect.value;
+
+        
+        document.body.classList.toggle(
+            "font-opendyslexic",
+            font.toLowerCase().includes("opendyslexic")
+        );
+
+        // diğer fontlar için normal uygulaman kalsın
+     if (!font.toLowerCase().includes("opendyslexic")) {
+         if (textInput) textInput.style.setProperty("font-family", font, "important");
+        if (outputBox) outputBox.style.setProperty("font-family", font, "important");
+        }
+
+
+
+        document.body.style.fontFamily = font;
+
+        if (textInput)  textInput.style.setProperty('font-family', font, 'important');
+        if (outputBox)  outputBox.style.setProperty('font-family', font, 'important');
+    }
+
+    if (fontSizeSelect) {
+        const sizePx = fontSizeSelect.value + "px";
+
+        document.body.style.fontSize = sizePx;
+
+        if (textInput)  textInput.style.setProperty('font-size', sizePx, 'important');
+        if (outputBox)  outputBox.style.setProperty('font-size', sizePx, 'important');
+}
+
+
 
     // Satır aralığı
     if (line) {
@@ -615,12 +648,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const styleInputs = [fontStyleSelect, fontSizeSelect, lineSpacingInput, wordSpacingInput, letterSpacingInput];
     styleInputs.forEach(input => {
         if(input) {
-            input.addEventListener('input', () => {
-                applyStyles();
-                if(input === lineSpacingInput) updateSliderValue(input, lineSpacingValue);
-                if(input === wordSpacingInput) updateSliderValue(input, wordSpacingValue);
-                if(input === letterSpacingInput) updateSliderValue(input, letterSpacingValue);
-            });
+                    const handler = () => {
+            applyStyles();
+            if(input === lineSpacingInput) updateSliderValue(input, lineSpacingValue);
+            if(input === wordSpacingInput) updateSliderValue(input, wordSpacingValue);
+            if(input === letterSpacingInput) updateSliderValue(input, letterSpacingValue);
+        };
+
+        input.addEventListener('input', handler);
+        input.addEventListener('change', handler);
+
+            
+            
         }
     });
 

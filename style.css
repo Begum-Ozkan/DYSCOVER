@@ -409,7 +409,7 @@ footer {
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-family: 'Arial', sans-serif;
+   /* font-family: 'Arial', sans-serif;*/
     font-size: 1rem;
     /* DÜZELTME: İyileştirme (Yeniden boyutlandırma) */
     resize: vertical;
@@ -961,7 +961,7 @@ input:checked + .toggle-slider:before {
 
 .review-cta a {
     color: var(--primary-color);
-    font-weight: bold;
+    font-weight: 400;
     text-decoration: underline;
 }
 /* === TTS VURGULAMA (Highlight) === */
@@ -1303,7 +1303,7 @@ nav ul li a {
     border-radius: 5px;
     padding: 25px;
     min-height: 300px; /* Kutunun boyu */
-    font-size: 18px; 
+    font-size: inherit; 
     line-height: 1.5; 
     position: relative; 
     overflow: hidden; 
@@ -1537,4 +1537,14 @@ body.interface-transparent .contact-form-wrapper textarea,
 body.interface-transparent .contact-form-wrapper select {
     background-color: rgba(255, 255, 255, 0.1) !important; /* Hafif buzlu cam */
     border-color: rgba(255, 255, 255, 0.3) !important;
+}
+:root { --app-font: 'Verdana', sans-serif; }
+
+body, #text-input, #output-box {
+  font-family: var(--app-font);
+}
+.font-opendyslexic #output-box,
+.font-opendyslexic #text-input {
+  font-family: OpenDyslexic, Arial, sans-serif !important;
+  font-weight: 400 !important;
 }
