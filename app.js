@@ -368,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 5. TTS SİSTEMİ
     // =======================================================
     function getSpeechText() {
-        if (outputBox && outputBox.textContent.trim().length > 0 && !outputBox.textContent.includes("is available in this box")) {
+        if (outputBox && outputBox.textContent.trim().length > 0 && !outputBox.textContent.includes("Your text is available in this box")) {
             return outputBox.textContent;
         }
         const heroTitle = document.querySelector('.hero-content h1');

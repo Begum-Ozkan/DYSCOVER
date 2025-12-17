@@ -142,7 +142,7 @@ nav ul li a:hover i {
     position: relative;
     width: 100%;
     height: 85vh; /* Ekranın %85'ini kaplar */
-    overflow: hidden;
+    overflow: auto;
     background-color: #000; /* Yüklenirken siyah kalsın */
 }
 
@@ -245,6 +245,15 @@ nav ul li a:hover i {
 
 /* Mobilde Hizalama Düzeltmesi (Zaten @media kısmında var ama buraya not düşelim) */
 @media (max-width: 768px) {
+
+    .hero-slider,
+    .slider-wrapper,
+    .slide-container {
+      height: auto;          /* sabit yüksekliği kaldır */
+      min-height: 0;
+      background: transparent; /* siyah alanı kaldırmak için */
+  }
+
     .hero-content {
         text-align: center;
     }
@@ -347,7 +356,7 @@ footer {
     
     transition: all 0.4s ease-in-out;
     opacity: 1;
-    overflow: hidden;
+    overflow: auto;
 }
 
 /* === Sekmeler (Tabs) === */
@@ -437,7 +446,7 @@ select {
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
-    font-family: 'Montserrat', sans-serif;
+    font-family:inherit;
     font-size: 1rem;
 }
 
