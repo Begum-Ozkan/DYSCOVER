@@ -1,5 +1,6 @@
 /* === DYSCOVER APP JAVASCRIPT - HYBRID ROBUST PDF === */
 
+
 // Global Değişkenler
 let currentUtterance = null; 
 let audioPlayer = new Audio(); 
@@ -24,6 +25,13 @@ if (window.pdfjsLib) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+// PDF.js worker ayarı (CDN üzerinden)
+    if (window.pdfjsLib) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js";
+    }
+
+    
 
     // === DOM ELEMENTLERİ ===
     const fileInput = document.getElementById('file-input');
@@ -141,19 +149,36 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
 
                     // Sonucu Yazdır
-                    if(textInput) {
-                        textInput.value = finalFullText || "Metin bulunamadı.";
+                    // Sonucu Yazdır
+                    const extractedText = (finalFullText || '').trim();
+
+                    // Eğer hiç metin çıkmadıysa (taranmış/görsel tabanlı PDF vb.) kullanıcıyı uyar
+                    if (!extractedText) {
+                    const warnMsg = "⚠️ Bu dosya taranmış/görsel tabanlı olabilir. Metin çıkarılamadı. Daha iyi sonuç için metin katmanlı PDF veya DOCX yükleyin.";
+                    if (textInput) {
+                        textInput.value = warnMsg;
                         applyText();
                         const pasteTab = document.querySelector('.tab-link[data-tab="paste"]');
-                        if(pasteTab) pasteTab.click();
+                        if (pasteTab) pasteTab.click();
                     }
-                    
+                    uploadStatus.textContent = warnMsg;
+                    uploadStatus.style.color = "orange";
+                    return;
+                    }
+
+                    if (textInput) {
+                    textInput.value = finalFullText;
+                    applyText();
+                    const pasteTab = document.querySelector('.tab-link[data-tab="paste"]');
+                    if (pasteTab) pasteTab.click();
+                    }
+
                     uploadStatus.textContent = "Conversion Complete!";
                     uploadStatus.style.color = "green";
 
-                } catch (err) {
-                    console.error("GENEL HATA:", err);
-                    uploadStatus.textContent = "Error: " + err.message;
+                } catch (error) {
+                    console.error("File processing error:", error);
+                    uploadStatus.textContent = "Error processing file. Please try again.";
                     uploadStatus.style.color = "red";
                 }
             };
@@ -724,3 +749,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+

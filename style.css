@@ -1545,6 +1545,6 @@ body, #text-input, #output-box {
 }
 .font-opendyslexic #output-box,
 .font-opendyslexic #text-input {
-  font-family: OpenDyslexic, Arial, sans-serif !important;
+  font-family: OpenDyslexicRegular, Arial, sans-serif !important;
   font-weight: 400 !important;
 }
